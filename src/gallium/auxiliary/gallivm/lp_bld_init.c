@@ -67,7 +67,8 @@
 #if USE_MCJIT
 void LLVMLinkInMCJIT();
 #endif
-
+#define LOG_TAG "EGL-GALLIUM"
+#include <cutils/log.h>
 
 #ifdef DEBUG
 unsigned gallivm_debug = 0;
@@ -269,6 +270,7 @@ init_gallivm_engine(struct gallivm_state *gallivm)
                                                     (unsigned) optlevel,
                                                     USE_MCJIT,
                                                     &error);
+ALOGE("%s: created JIT compiler and ret is %d, engine %p, MCJIT %d, error=[%s]", __func__, ret, gallivm->engine, USE_MCJIT, error);
 #else
       ret = LLVMCreateJITCompiler(&gallivm->engine, gallivm->provider,
                                   (unsigned) optlevel, &error);
@@ -650,7 +652,7 @@ gallivm_jit_function(struct gallivm_state *gallivm,
 {
    void *code;
    func_pointer jit_func;
-
+ALOGE("%s(%p) called, engine at %p", __func__, gallivm, gallivm->engine);
    assert(gallivm->compiled);
    assert(gallivm->engine);
 

@@ -101,7 +101,8 @@
 #include "lp_flush.h"
 #include "lp_state_fs.h"
 #include "lp_rast.h"
-
+#define LOG_TAG "EGL-GALLIUM"
+#include <cutils/log.h>
 
 /** Fragment shader number (for debugging) */
 static unsigned fs_no = 0;
@@ -2555,6 +2556,7 @@ generate_variant(struct llvmpipe_context *lp,
                  struct lp_fragment_shader *shader,
                  const struct lp_fragment_shader_variant_key *key)
 {
+ALOGE("%s(%p, %p, %p) called", __func__, lp, shader, key);
    struct lp_fragment_shader_variant *variant;
    const struct util_format_description *cbuf0_format_desc;
    boolean fullcolormask;
@@ -2622,7 +2624,7 @@ generate_variant(struct llvmpipe_context *lp,
    /*
     * Compile everything
     */
-
+ALOGE("%s: About to compile module with %p", __func__, variant->gallivm);
    gallivm_compile_module(variant->gallivm);
 
    if (variant->function[RAST_EDGE_TEST]) {
@@ -3094,6 +3096,7 @@ make_variant_key(struct llvmpipe_context *lp,
 void 
 llvmpipe_update_fs(struct llvmpipe_context *lp)
 {
+ALOGE("%s(%p) called", __func__, lp);
    struct lp_fragment_shader *shader = lp->fs;
    struct lp_fragment_shader_variant_key key;
    struct lp_fragment_shader_variant *variant = NULL;

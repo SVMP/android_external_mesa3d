@@ -323,8 +323,9 @@ lp_build_create_jit_compiler_for_module(LLVMExecutionEngineRef *OutJIT,
    /*
     * Workaround http://llvm.org/bugs/show_bug.cgi?id=12833
     */
-   StringRef MArch = "";
-   StringRef MCPU = "";
+   StringRef MArch = "arm";
+   StringRef MCPU = "cortex-a8";
+
    Triple TT(unwrap(M)->getTargetTriple());
    JIT = builder.create(builder.selectTarget(TT, MArch, MCPU, MAttrs));
 #endif

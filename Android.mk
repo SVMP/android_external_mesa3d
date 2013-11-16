@@ -36,7 +36,11 @@ MESA_ANDROID_MINOR_VERSION := $(word 2, $(subst ., , $(PLATFORM_VERSION)))
 MESA_ANDROID_VERSION := $(MESA_ANDROID_MAJOR_VERSION).$(MESA_ANDROID_MINOR_VERSION)
 
 MESA_COMMON_MK := $(MESA_TOP)/Android.common.mk
+MESA_LLVM_MK := $(MESA_TOP)/Android.llvm.mk
 MESA_PYTHON2 := python
+
+LLVM_ROOT_PATH := external/llvm
+MESA_LLVM := true
 
 DRM_TOP := external/drm
 DRM_GRALLOC_TOP := hardware/drm_gralloc

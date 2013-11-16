@@ -23,62 +23,57 @@
 
 LOCAL_PATH := $(call my-dir)
 
+# from Makefile
+C_SOURCES = \
+	lp_bld_alpha.c \
+	lp_bld_blend.c \
+	lp_bld_blend_aos.c \
+	lp_bld_blend_logicop.c \
+	lp_bld_depth.c \
+	lp_bld_interp.c \
+	lp_clear.c \
+	lp_context.c \
+	lp_draw_arrays.c \
+	lp_fence.c \
+	lp_flush.c \
+	lp_jit.c \
+	lp_memory.c \
+	lp_perf.c \
+	lp_query.c \
+	lp_rast.c \
+	lp_rast_debug.c \
+	lp_rast_tri.c \
+	lp_scene.c \
+	lp_scene_queue.c \
+	lp_screen.c \
+	lp_setup.c \
+	lp_setup_line.c \
+	lp_setup_point.c \
+	lp_setup_tri.c \
+	lp_setup_vbuf.c \
+	lp_state_blend.c \
+	lp_state_clip.c \
+	lp_state_derived.c \
+	lp_state_fs.c \
+	lp_state_setup.c \
+	lp_state_gs.c \
+	lp_state_rasterizer.c \
+	lp_state_sampler.c \
+	lp_state_so.c \
+	lp_state_surface.c \
+	lp_state_vertex.c \
+	lp_state_vs.c \
+	lp_surface.c \
+	lp_tex_sample.c \
+	lp_texture.c
+
 include $(CLEAR_VARS)
 
 LOCAL_SRC_FILES := \
-	egl.c \
-	egl_pipe.c \
-	egl_st.c
+	$(C_SOURCES)
 
-LOCAL_CFLAGS := \
-	-DFEATURE_ES1=1 \
-	-DFEATURE_ES2=1 \
-	-D_EGL_MAIN=_eglBuiltInDriverGALLIUM
+LOCAL_MODULE := libmesa_pipe_llvmpipe
 
-LOCAL_C_INCLUDES := \
-	$(GALLIUM_TOP)/state_trackers/vega \
-	$(GALLIUM_TOP)/state_trackers/egl \
-	$(MESA_TOP)/src/egl/main \
-	$(MESA_TOP)/src/loader \
-	$(MESA_TOP)/src/mesa
-
-# swrast
-ifeq ($(MESA_LLVM),true)
-LOCAL_CFLAGS += -DGALLIUM_LLVMPIPE
-else
-LOCAL_CFLAGS += -DGALLIUM_SOFTPIPE
-endif
-
-# !swrast only
-ifneq ($(MESA_GPU_DRIVERS),swrast)
-LOCAL_C_INCLUDES += \
-	$(DRM_TOP)/include/drm \
-	$(DRM_TOP)
-endif
-
-ifneq ($(filter i915g, $(MESA_GPU_DRIVERS)),)
-LOCAL_CFLAGS += -D_EGL_PIPE_I915=1
-endif
-ifneq ($(filter ilo, $(MESA_GPU_DRIVERS)),)
-LOCAL_CFLAGS += -D_EGL_PIPE_ILO=1
-endif
-ifneq ($(filter nouveau, $(MESA_GPU_DRIVERS)),)
-LOCAL_CFLAGS += -D_EGL_PIPE_NOUVEAU=1
-endif
-ifneq ($(filter r300g, $(MESA_GPU_DRIVERS)),)
-LOCAL_CFLAGS += -D_EGL_PIPE_R300=1
-endif
-ifneq ($(filter r600g, $(MESA_GPU_DRIVERS)),)
-LOCAL_CFLAGS += -D_EGL_PIPE_R600=1
-endif
-ifneq ($(filter radeonsi, $(MESA_GPU_DRIVERS)),)
-LOCAL_CFLAGS += -D_EGL_PIPE_RADEONSI=1
-endif
-ifneq ($(filter vmwgfx, $(MESA_GPU_DRIVERS)),)
-LOCAL_CFLAGS += -D_EGL_PIPE_VMWGFX=1
-endif
-
-LOCAL_MODULE := libmesa_egl_gallium
-
+include $(MESA_LLVM_MK)
 include $(GALLIUM_COMMON_MK)
 include $(BUILD_STATIC_LIBRARY)

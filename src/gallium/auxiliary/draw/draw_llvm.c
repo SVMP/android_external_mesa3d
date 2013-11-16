@@ -59,6 +59,8 @@
 
 #define DEBUG_STORE 0
 
+#define LOG_TAG "EGL-GALLIUM"
+#include <cutils/log.h>
 
 static void
 draw_llvm_generate(struct draw_llvm *llvm, struct draw_llvm_variant *var,
@@ -473,7 +475,7 @@ create_jit_types(struct draw_llvm_variant *variant)
    struct gallivm_state *gallivm = variant->gallivm;
    LLVMTypeRef texture_type, sampler_type, context_type, buffer_type,
       vb_type;
-
+ALOGE("Calling %s(%p)\n", __func__, gallivm);
    texture_type = create_jit_texture_type(gallivm, "texture");
    sampler_type = create_jit_sampler_type(gallivm, "sampler");
 

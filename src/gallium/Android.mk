@@ -34,6 +34,10 @@ SUBDIRS := \
 # swrast
 SUBDIRS += winsys/sw/android drivers/softpipe
 
+ifeq ($(MESA_LLVM),true)
+SUBDIRS += drivers/llvmpipe
+endif
+
 # i915g
 ifneq ($(filter i915g, $(MESA_GPU_DRIVERS)),)
 SUBDIRS += winsys/i915/drm drivers/i915
