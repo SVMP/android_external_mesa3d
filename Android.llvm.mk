@@ -44,12 +44,12 @@ LOCAL_STATIC_LIBRARIES += \
 	libLLVMTransformUtils \
 	libLLVMipa \
 	libLLVMAsmParser \
-	libLLVMArchive \
 	libLLVMBitReader \
 	libLLVMAnalysis \
 	libLLVMTarget \
 	libLLVMMC \
 	libLLVMCore \
+	libLLVMObject \
 	libLLVMSupport
 
 LOCAL_C_INCLUDES += \
@@ -57,7 +57,7 @@ LOCAL_C_INCLUDES += \
 	$(LLVM_ROOT_PATH)/include
 
 LOCAL_CFLAGS += \
-	-DHAVE_LLVM=0x0302
+	-DHAVE_LLVM=0x0304
 
 include $(LLVM_ROOT_PATH)/llvm-device-build.mk
 
